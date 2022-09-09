@@ -1,6 +1,7 @@
 defmodule ExMon.Game.Actions.Attack do
 
   alias ExMon.Game
+  alias ExMon.Game.Status
 
   @move_average_power 18..25
   @move_random_power 10..35
@@ -13,7 +14,7 @@ defmodule ExMon.Game.Actions.Attack do
       |> Game.fetch_player()
       |> Map.get(:life)
       |> calculate_total_life(damage)
-      |> update_opponent_life(target)
+      |> update_opponent_life(target, damage)
   end
 
   defp calculate_power(:move_random), do: Enum.random(@move_random_power)
@@ -22,16 +23,18 @@ defmodule ExMon.Game.Actions.Attack do
   defp calculate_total_life(life, damage) when life - damage < 0, do: 0
   defp calculate_total_life(life, damage), do: life - damage
 
-  defp update_game(new_opponent_data, opponent_key) do
+  defp update_game(new_opponent_data, opponent, damage) do
     Game.info()
-    |> Map.put(opponent_key,new_opponent_data)
+    |> Map.put(opponent,new_opponent_data)
     |> Game.update()
+
+    Status.print_move_message(opponent, :attack, damage)
   end
-  defp update_opponent_life(life, opponent) do
+  defp update_opponent_life(life, opponent, damage) do
     opponent
     |> Game.fetch_player()
     |> Map.put(:life, life)
-    |> update_game(opponent)
+    |> update_game(opponent, damage)
   end
 
 end
