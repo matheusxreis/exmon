@@ -25,5 +25,10 @@ defmodule ExMon do
   end
 
   defp do_move({:error, move}), do: Status.print_wrong_move_message(move)
-  defp do_move({:ok, move}), do: "Move top #{move}"
+  defp do_move({:ok, move}) do
+    case move do
+      :move_heal -> "move healing"
+       move -> Actions.attack(move)
+    end
+  end
 end
