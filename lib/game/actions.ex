@@ -11,9 +11,12 @@ defmodule ExMon.Game.Actions do
     Enum.find_value(
       moves,
       {:error, move},
-      fn {key, value} -> if value === move, do: { :ok, key} end
+      fn {key, value} -> if value === move, do: {:ok, key} end
       )
   end
 
+  def attack(move) do
+    IO.puts("Atttttacking #{move}")
+  end
 
 end
