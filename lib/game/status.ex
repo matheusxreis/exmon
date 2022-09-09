@@ -5,4 +5,8 @@ defmodule ExMon.Game.Status do
     IO.inspect(Game.info()) # for print what is not a string
     IO.puts("----------------------------------------")
   end
+
+  def print_wrong_move_message(move) do
+    IO.puts("\n====== Invalid move: #{move}. This move doesn't exist. ====== \n")
+  end
 end
