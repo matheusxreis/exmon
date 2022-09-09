@@ -19,6 +19,11 @@ defmodule ExMon do
   end
 
   def make_move(move) do
-    Actions.fetch_moves(move)
+    move
+    |> Actions.fetch_moves()
+    |> do_move()
   end
+
+  defp do_move({:error, move}), do: Status.print_wrong_move_message(move)
+  defp do_move({:ok, move}), do: "Move top #{move}"
 end
