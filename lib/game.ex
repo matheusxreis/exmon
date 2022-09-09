@@ -7,7 +7,7 @@ defmodule ExMon.Game do
   end
 
   def update(state) do
-  Agent.update(__MODULE__,fn _ -> state end)
+  Agent.update(__MODULE__,fn _ -> update_game_status(state) end)
   end
 
 
@@ -16,4 +16,14 @@ defmodule ExMon.Game do
   def fetch_player(p), do: Map.get(info(), p)
   def turn(), do: Map.get(info(), :turn)
 
+
+  defp update_game_status(
+    %{player: %{life: player_life}, computer: %{life: computer_life}} = state
+  ) when player_life == 0 or computer_life == 0, do: Map.put(state, :status, :game_over)
+
+  defp update_game_state(state) do
+    state
+    |> Map.put(state, :status, :continue)
+    |> update_turn()
+  end
 end
