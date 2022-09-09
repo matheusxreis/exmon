@@ -22,10 +22,16 @@ defmodule ExMon.Game.Actions.Attack do
   defp calculate_total_life(life, damage) when life - damage < 0, do: 0
   defp calculate_total_life(life, damage), do: life - damage
 
+  defp update_game(new_opponent_data, opponent_key) do
+    Game.info()
+    |> Map.put(opponent_key,new_opponent_data)
+    |> Game.update()
+  end
   defp update_opponent_life(life, opponent) do
     opponent
     |> Game.fetch_player()
     |> Map.put(:life, life)
+    |> update_game(opponent)
   end
 
 end
