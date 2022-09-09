@@ -6,5 +6,6 @@ defmodule ExMon.Game do
     Agent.start_link(fn -> initial_value end,name: __MODULE__)
   end
 
-  def info(), do: Agent.get(__MODULE__, fn it -> it end)
+  def info(), do: Agent.get(__MODULE__, fn it -> it end);
+  def player(), do: Map.get(info(), :player)
 end
