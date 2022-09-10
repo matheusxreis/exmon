@@ -26,9 +26,9 @@ defmodule ExMon.Game.Status do
     IO.puts("\n====== The computer attacked the player dealing #{damage} damage. ====== \n")
   end
   def print_move_message(:player, :heal, life_points) do
-    IO.puts("\n====== The player healing #{life_points} life points. ====== \n")
+    IO.puts("\n====== The player healead, and go to #{life_points} life points. ====== \n")
   end
   def print_move_message(:computer, :heal, life_points) do
-    IO.puts("\n====== The computer healing #{life_points} life points. ====== \n")
+    IO.puts("\n====== The computer healead, and go to #{life_points} life points. ====== \n")
   end
 end
