@@ -118,4 +118,19 @@ defmodule ExMon.GameTest do
       assert Game.fetch_player(:computer) == expected_response
     end
    end
+
+   describe "turn/0" do
+    test "returns the current game turn" do
+        player = Player.build("Matheus", :punch, :kick, :heal);
+        computer = Player.build("Computer", :punch, :kick, :heal)
+        Game.start(computer, player)
+
+        assert Game.turn() == :player
+
+        Game.info() |> Game.update()
+
+        assert Game.turn == :computer
+
+   end
+  end
 end
