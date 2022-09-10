@@ -87,4 +87,35 @@ defmodule ExMon.GameTest do
       assert Game.player() == expected_response
     end
    end
+
+   describe "fetch_player/1" do
+
+    test "returns the player data" do
+      player = Player.build("Matheus", :punch, :kick, :heal);
+      computer = Player.build("Computer", :punch, :kick, :heal)
+      Game.start(computer, player)
+
+      expected_response = %Player{
+        life: 100,
+        moves: %{move_average: :kick, move_heal: :heal, move_random: :punch},
+        name: "Matheus"
+        }
+
+      assert Game.fetch_player(:player) == expected_response
+    end
+
+    test "returns the computer data" do
+      player = Player.build("Matheus", :punch, :kick, :heal);
+      computer = Player.build("Computer", :punch_c, :kick_c, :heal_c)
+      Game.start(computer, player)
+
+      expected_response = %Player{
+        life: 100,
+        moves: %{move_average: :kick_c, move_heal: :heal_c, move_random: :punch_c},
+        name: "Computer"
+        }
+
+      assert Game.fetch_player(:computer) == expected_response
+    end
+   end
 end
