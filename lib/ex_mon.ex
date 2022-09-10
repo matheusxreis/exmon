@@ -19,11 +19,18 @@ defmodule ExMon do
   end
 
   def make_move(move) do
+    Game.info()
+    |> Map.get(:status)
+    |> handle_status(move)
+cl
+    computer_move(Game.info())
+  end
+
+  defp handle_status(:game_over, _move), do: Status.print_round_message(Game.info())
+  defp handle_status(_status_, move) do
     move
     |> Actions.fetch_moves()
     |> do_move()
-
-    computer_move(Game.info())
   end
 
   defp computer_move(%{turn: :computer, status: :continue} = state) do
