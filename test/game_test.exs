@@ -1,6 +1,7 @@
 defmodule ExMon.GameTest do
   use ExUnit.Case
 
+
   alias ExMon.{Game, Player}
 
     describe "start/2" do
@@ -70,4 +71,20 @@ defmodule ExMon.GameTest do
          assert Game.info() == expected_new_response
       end
     end
+
+   describe "player/0" do
+    test "returns the current player state in the game" do
+      player = Player.build("Matheus", :punch, :kick, :heal);
+      computer = Player.build("Computer", :punch, :kick, :heal)
+      Game.start(computer, player)
+
+      expected_response = %Player{
+        life: 100,
+        moves: %{move_average: :kick, move_heal: :heal, move_random: :punch},
+        name: "Matheus"
+      }
+
+      assert Game.player() == expected_response
+    end
+   end
 end
