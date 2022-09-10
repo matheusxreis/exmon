@@ -22,7 +22,7 @@ defmodule ExMon do
     Game.info()
     |> Map.get(:status)
     |> handle_status(move)
-cl
+
     computer_move(Game.info())
   end
 
